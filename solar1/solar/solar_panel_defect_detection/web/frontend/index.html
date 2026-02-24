@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Panel Defect Detection System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1><i class="fas fa-solar-panel"></i>Solar Panel Defect Detection</h1>
+            <p>Advanced AI-powered system for autonomous defect detection and localization</p>
+        </header>
+
+        <!-- Upload Section -->
+        <section class="upload-section">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-content">
+                    <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                    <h3>Upload Solar Panel Image</h3>
+                    <p>Drag & drop your EL image here or click to browse</p>
+                    <p class="file-types">Supported formats: PNG, JPG, JPEG, TIF, TIFF (Max: 10MB)</p>
+                    <button class="upload-btn" id="uploadBtn">
+                        <i class="fas fa-folder-open"></i>Choose File
+                    </button>
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                </div>
+                <div class="upload-progress" id="uploadProgress" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p id="progressText">Uploading...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-section" id="resultsSection" style="display: none;">
+            <!-- Image Display -->
+            <div class="image-display">
+                <div class="image-container">
+                    <h3><i class="fas fa-image"></i>Original Image</h3>
+                    <img id="originalImage" alt="Original solar panel image">
+                </div>
+                <div class="image-container">
+                    <h3><i class="fas fa-search-plus"></i>Defect Analysis</h3>
+                    <img id="analysisImage" alt="Defect analysis overlay">
+                </div>
+            </div>
+
+            <!-- Analysis Results -->
+            <div class="analysis-results">
+                <div class="result-card">
+                    <h3><i class="fas fa-chart-bar"></i>Defect Statistics</h3>
+                    <div class="result-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Total Defects Detected:</span>
+                            <span class="stat-value" id="defectCount">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Defect Area (%):</span>
+                            <span class="stat-value" id="defectArea">0.0%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Analysis Confidence:</span>
+                            <span class="stat-value" id="analysisConfidence">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <h3><i class="fas fa-exclamation-triangle"></i>Detected Defects</h3>
+                    <div id="defectList" class="defect-list">
+                        <div class="no-defects">
+                            <i class="fas fa-check-circle"></i>
+                            <p>No defects detected</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <h3><i class="fas fa-tools"></i>Maintenance Recommendations</h3>
+                    <ul id="recommendationsList" class="recommendations-list">
+                        <li>Panel appears healthy. Continue regular monitoring.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Explainable AI Section -->
+            <div class="explanation-section">
+                <h3><i class="fas fa-brain"></i>AI Decision Explanation</h3>
+                <div class="explanation-content">
+                    <div class="explanation-text" id="explanationText">
+                        The AI system analyzed the solar panel image using advanced computer vision techniques.
+                        It examined spatial patterns, contrast variations, and structural features to identify
+                        potential defects. The analysis focused on micro-cracks, hotspots, and cell damage
+                        that could affect panel performance.
+                    </div>
+                    <div class="confidence-meter">
+                        <label>Model Confidence:</label>
+                        <div class="meter-container">
+                            <div class="meter-fill" id="confidenceMeter"></div>
+                        </div>
+                        <span id="confidenceValue">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn btn-primary" id="downloadReportBtn">
+                    <i class="fas fa-download"></i>Download Report
+                </button>
+                <button class="btn btn-secondary" id="analyzeAnotherBtn">
+                    <i class="fas fa-redo"></i>Analyze Another Image
+                </button>
+                <button class="btn btn-outline" id="viewDetailsBtn">
+                    <i class="fas fa-info-circle"></i>View Detailed Analysis
+                </button>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 Solar Panel Defect Detection System. Built with advanced AI for industrial applications.</p>
+            <div class="tech-stack">
+                <span class="tech-item"><i class="fab fa-python"></i>PyTorch</span>
+                <span class="tech-item"><i class="fas fa-brain"></i>Self-Supervised Learning</span>
+                <span class="tech-item"><i class="fas fa-eye"></i>Computer Vision</span>
+                <span class="tech-item"><i class="fas fa-flask"></i>Flask API</span>
+                <span class="tech-item"><i class="fas fa-server"></i>GPU Accelerated</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal for loading/errors -->
+    <div class="modal" id="modal" style="display: none;">
+        <div class="modal-content" id="modalContent">
+            <div class="loading-spinner"></div>
+            <h3 id="modalTitle">Processing...</h3>
+            <p id="modalMessage">Analyzing your solar panel image...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

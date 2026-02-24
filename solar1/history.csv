@@ -1,0 +1,32 @@
+username,filename,defects_found,condition,timestamp
+admin,download (1).jpg,90,Critical,2026-02-19 15:01:17
+admin,Damaged-Solar-Panel.jpg.jpeg,71,Critical,2026-02-19 15:03:16
+admin,TFP_EMEA_Assets_690x345px_Panel-Damage.jpg.jpeg,78,Critical,2026-02-19 15:03:33
+admin,TFP_EMEA_Assets_690x345px_Panel-Damage.jpg.jpeg,78,Critical,2026-02-19 15:18:15
+admin,TFP_EMEA_Assets_690x345px_Panel-Damage.jpg.jpeg,67,Critical,2026-02-19 15:22:42
+admin,Damaged-Solar-Panel.jpg.jpeg,63,Critical,2026-02-19 15:23:08
+admin,Damaged-Solar-Panel.jpg.jpeg,71,Critical,2026-02-19 15:24:07
+admin,Damaged-Solar-Panel.jpg.jpeg,71,Critical,2026-02-19 15:26:05
+admin,Damaged-Solar-Panel.jpg.jpeg,71,Critical,2026-02-19 15:33:10
+admin,download (1).jpg,90,Critical,2026-02-19 15:33:30
+admin,TFP_EMEA_Assets_690x345px_Panel-Damage.jpg.jpeg,78,Critical,2026-02-19 15:33:48
+admin,TFP_EMEA_Assets_690x345px_Panel-Damage.jpg.jpeg,78,Critical,2026-02-19 15:36:24
+admin,TFP_EMEA_Assets_690x345px_Panel-Damage.jpg.jpeg,78,Critical,2026-02-19 15:38:12
+admin,TFP_EMEA_Assets_690x345px_Panel-Damage.jpg.jpeg,78,Critical,2026-02-19 15:40:12
+admin,Damaged-Solar-Panel.jpg.jpeg,71,Critical,2026-02-19 15:40:29
+admin,Damaged-Solar-Panel.jpg.jpeg,71,Critical,2026-02-19 15:41:59
+admin,Damaged-Solar-Panel.jpg.jpeg,60,Critical,2026-02-19 15:45:57
+admin,TFP_EMEA_Assets_690x345px_Panel-Damage.jpg.jpeg,60,Critical,2026-02-19 15:46:31
+admin,new solar.jpg,60,Critical,2026-02-19 15:46:56
+admin,new solar.jpg,0,Normal,2026-02-19 15:51:10
+admin,Damaged-Solar-Panel.jpg.jpeg,4,Degraded,2026-02-19 15:51:44
+admin,Damaged-Solar-Panel.jpg.jpeg,60,Critical,2026-02-19 15:54:48
+admin,Damaged-Solar-Panel.jpg.jpeg,60,Critical,2026-02-19 15:56:01
+admin,download (1).jpg,47,Critical,2026-02-19 15:56:33
+admin,TFP_EMEA_Assets_690x345px_Panel-Damage.jpg.jpeg,13,Critical,2026-02-19 15:57:10
+admin,new solar.jpg,60,Critical,2026-02-19 15:58:00
+admin,TFP_EMEA_Assets_690x345px_Panel-Damage.jpg.jpeg,13,Critical,2026-02-19 15:58:24
+admin,solar.jpg,33,Critical,2026-02-19 15:58:59
+admin,solar.jpg,33,Critical,2026-02-19 16:02:00
+admin,solar.jpg,33,Critical,2026-02-19 16:02:31
+admin,TFP_EMEA_Assets_690x345px_Panel-Damage.jpg.jpeg,13,Critical,2026-02-19 16:02:44

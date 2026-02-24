@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - Solar Panel AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        :root {
+            --ocean-dark: #030a1a;
+            --ocean-deep: #0a1f2e;
+            --ocean-mid: #0d2d42;
+            --teal: #14b8a6;
+            --cyan: #06b6d4;
+            --aqua: #22d3ee;
+            --coral: #f97316;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(180deg, var(--ocean-dark) 0%, var(--ocean-deep) 50%, #020810 100%);
+            overflow-x: hidden;
+        }
+        
+        .waves {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 200px;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 200px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,60 C150,120 350,0 600,60 C850,120 1050,0 1200,60 L1200,120 L0,120 Z" fill="%2306b6d4" fill-opacity="0.05"/></svg>') repeat-x;
+            animation: wave 20s linear infinite;
+        }
+        
+        .wave:nth-child(2) { bottom: 10px; opacity: 0.5; animation: wave 15s linear infinite reverse; }
+        
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .bubbles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .bubble {
+            position: absolute;
+            bottom: -20px;
+            background: rgba(6, 182, 212, 0.1);
+            border-radius: 50%;
+            animation: rise var(--duration) ease-in infinite;
+        }
+        
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1); opacity: 0.6; }
+            100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: rgba(3, 10, 26, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--teal), var(--cyan));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+        }
+        
+        .logo h1 {
+            color: #fff;
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--teal), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .nav-link {
+            padding: 10px 20px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background: rgba(6, 182, 212, 0.15);
+            color: var(--cyan);
+        }
+        
+        .nav-link.active {
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--teal), var(--cyan));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 600;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+        }
+        
+        .user-name {
+            color: #fff;
+            font-weight: 500;
+        }
+        
+        .logout-btn {
+            padding: 8px 16px;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            color: #ef4444;
+            text-decoration: none;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.25);
+        }
+        
+        .main-content {
+            margin-top: 70px;
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .page-header {
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            color: #fff;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .page-header p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 16px;
+        }
+        
+        .results-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .summary-card {
+            background: rgba(13, 45, 66, 0.5);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(6, 182, 212, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .summary-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .summary-value {
+            color: #fff;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .summary-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+        
+        .summary-card.critical .summary-value { color: #ef4444; text-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
+        .summary-card.degraded .summary-value { color: var(--coral); text-shadow: 0 0 20px rgba(249, 115, 22, 0.5); }
+        .summary-card.normal .summary-value { color: var(--teal); text-shadow: 0 0 20px rgba(20, 184, 166, 0.5); }
+        
+        .steps-section {
+            margin-top: 40px;
+        }
+        
+        .section-title {
+            color: #fff;
+            font-size: 24px;
+            margin-bottom: 25px;
+        }
+        
+        .top-result-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .result-card {
+            background: rgba(13, 45, 66, 0.4);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(6, 182, 212, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .result-card:hover {
+            border-color: rgba(6, 182, 212, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .result-card .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .step-title {
+            display: flex;
+            align-items: center;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--teal), var(--cyan));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            margin-right: 15px;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+        }
+        
+        .step-name {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .step-content img {
+            width: 100%;
+            border-radius: 14px;
+            max-height: 350px;
+            object-fit: contain;
+        }
+        
+        .color-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(13, 45, 66, 0.3);
+            border-radius: 14px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .legend-item:hover {
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .legend-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+        }
+        
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .step-card-full {
+            background: rgba(13, 45, 66, 0.4);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(6, 182, 212, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .step-card-full:hover {
+            border-color: rgba(6, 182, 212, 0.3);
+        }
+        
+        .step-card-full .step-content img {
+            max-height: 250px;
+            object-fit: contain;
+        }
+        
+        .defects-list {
+            margin-top: 32px;
+            max-width: 760px;
+            padding: 16px;
+            border-radius: 16px;
+            background: rgba(13, 45, 66, 0.28);
+            border: 1px solid rgba(6, 182, 212, 0.15);
+        }
+        
+        .defects-subtitle {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 13px;
+            margin-top: -8px;
+            margin-bottom: 12px;
+        }
+        
+        .defect-item {
+            background: rgba(13, 45, 66, 0.4);
+            border-radius: 12px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--teal);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        .defect-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .defect-item:hover {
+            background: rgba(6, 182, 212, 0.08);
+            transform: translateX(3px);
+        }
+
+        .defect-item.safe, .defect-item.empty {
+            border-left-color: #22c55e;
+            background: rgba(34, 197, 94, 0.1);
+        }
+        
+        .defect-info h4 {
+            color: #fff;
+            font-size: 15px;
+            margin-bottom: 3px;
+        }
+        
+        .defect-info p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
+        }
+        
+        .defect-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            min-width: 56px;
+            text-align: center;
+        }
+        
+        .defect-badge.critical { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .defect-badge.high { background: rgba(249, 115, 22, 0.2); color: var(--coral); }
+        .defect-badge.moderate { background: rgba(255, 255, 0, 0.2); color: #ffff00; }
+        .defect-badge.info { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 14px 30px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--teal), var(--cyan));
+            color: #fff;
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(6, 182, 212, 0.5);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--teal);
+        }
+    </style>
+</head>
+<body>
+    <div class="waves">
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+    <div class="bubbles" id="bubbles"></div>
+    
+    <nav class="navbar">
+        <div class="logo">
+            <div class="logo-icon">☀️</div>
+            <h1>Solar Panel AI</h1>
+        </div>
+        
+        <div class="nav-links">
+            <a href="{{ url_for('dashboard') }}" class="nav-link">
+                <i class="fas fa-th-large"></i> Dashboard
+            </a>
+            <a href="{{ url_for('detect') }}" class="nav-link active">
+                <i class="fas fa-search"></i> Detect
+            </a>
+            <a href="{{ url_for('history') }}" class="nav-link">
+                <i class="fas fa-history"></i> History
+            </a>
+        </div>
+        
+        <div class="user-menu">
+            <div class="user-avatar">{{ username[0]|upper }}</div>
+            <span class="user-name">{{ username }}</span>
+            <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+        </div>
+    </nav>
+    
+    <main class="main-content">
+        <div class="page-header">
+            <h1>🌊 Analysis Results</h1>
+            <p>File: {{ filename }}</p>
+        </div>
+        
+        <div class="results-summary">
+            <div class="summary-card {% if condition == 'Critical' %}critical{% elif condition == 'Degraded' %}degraded{% else %}normal{% endif %}">
+                <div class="summary-value">{{ defect_count }}</div>
+                <div class="summary-label">Defects Found</div>
+            </div>
+            <div class="summary-card {% if condition == 'Critical' %}critical{% elif condition == 'Degraded' %}degraded{% else %}normal{% endif %}">
+                <div class="summary-value">{{ condition }}</div>
+                <div class="summary-label">Condition</div>
+            </div>
+        </div>
+        
+        <div class="steps-section">
+            <h2 class="section-title">Result Preview</h2>
+            
+            <div class="top-result-container">
+                <div class="result-card">
+                    <div class="step-header">
+                        <div class="step-title">
+                            <div class="step-number">1</div>
+                            <div class="step-name">Original Image</div>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <img src="data:image/png;base64,{{ original }}" alt="Original">
+                    </div>
+                </div>
+                
+                <div class="result-card">
+                    <div class="step-header">
+                        <div class="step-title">
+                            <div class="step-number">2</div>
+                            <div class="step-name">Final Result - Highlighted Defects</div>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <img src="data:image/png;base64,{{ final }}" alt="Final Result">
+                    </div>
+                    <div class="color-legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #00FF00;"></div>
+                            <span class="legend-text">Safe / Normal (Green)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #FF0000;"></div>
+                            <span class="legend-text">Burn Mark (Red)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #0000FF;"></div>
+                            <span class="legend-text">Hotspot (Blue)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #00FFFF;"></div>
+                            <span class="legend-text">Discoloration (Cyan)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #FFFF00;"></div>
+                            <span class="legend-text">Crack (Yellow)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #FF00FF;"></div>
+                            <span class="legend-text">Thermal Anomaly (Magenta)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="steps-section">
+            <h2 class="section-title">Detection Process Steps</h2>
+            
+            <div class="steps-grid">
+                <div class="step-card-full">
+                    <div class="step-header">
+                        <div class="step-title">
+                            <div class="step-number">1</div>
+                            <div class="step-name">Grayscale Conversion</div>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <img src="data:image/png;base64,{{ grayscale }}" alt="Grayscale">
+                    </div>
+                </div>
+                
+                <div class="step-card-full">
+                    <div class="step-header">
+                        <div class="step-title">
+                            <div class="step-number">2</div>
+                            <div class="step-name">Grid Analysis (6x10)</div>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <img src="data:image/png;base64,{{ grid }}" alt="Grid">
+                    </div>
+                </div>
+                
+                <div class="step-card-full">
+                    <div class="step-header">
+                        <div class="step-title">
+                            <div class="step-number">3</div>
+                            <div class="step-name">Edge Detection (Cracks)</div>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <img src="data:image/png;base64,{{ edges }}" alt="Edges">
+                    </div>
+                </div>
+                
+                <div class="step-card-full">
+                    <div class="step-header">
+                        <div class="step-title">
+                            <div class="step-number">4</div>
+                            <div class="step-name">Deviation Heatmap</div>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <img src="data:image/png;base64,{{ heatmap }}" alt="Heatmap">
+                        <p style="color: rgba(255,255,255,0.6); margin-top: 10px; font-size: 13px;">Red = High deviation | Blue = Normal</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="defects-list">
+            <h2 class="section-title">Detected Defects</h2>
+            <p class="defects-subtitle">Showing only actual findings from this panel scan.</p>
+
+            <div class="defect-item safe">
+                <div class="defect-info">
+                    <h4>Safe Panels</h4>
+                    <p>{{ safe_panel_count }} / {{ total_cells }} cells safe ({{ "%.1f"|format(safe_panel_percent) }}%) | Defective cells: {{ defective_cell_count }}</p>
+                </div>
+                <span class="defect-badge info">{{ safe_panel_count }}</span>
+            </div>
+
+            {% if defect_summary %}
+            {% for item in defect_summary %}
+            <div class="defect-item">
+                <div class="defect-info">
+                    <h4>{{ item.type }}</h4>
+                    <p>{{ item.count }} detection{% if item.count != 1 %}s{% endif %} | Avg confidence: {{ "%.1f"|format(item.avg_confidence * 100) }}%</p>
+                </div>
+                <span class="defect-badge {% if item.avg_confidence > 0.7 %}critical{% elif item.avg_confidence > 0.5 %}high{% else %}moderate{% endif %}">
+                    {{ item.count }}x
+                </span>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="defect-item empty">
+                <div class="defect-info">
+                    <h4>No defects found</h4>
+                    <p>All scanned cells are currently safe.</p>
+                </div>
+                <span class="defect-badge info">SAFE</span>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="action-buttons">
+            <a href="{{ url_for('detect') }}" class="btn btn-primary">🌊 Analyze Another Image</a>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+    </main>
+    
+    <script>
+        // Generate bubbles
+        const bubblesContainer = document.getElementById('bubbles');
+        const bubbleCount = 15;
+        
+        for (let i = 0; i < bubbleCount; i++) {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            const size = Math.random() * 20 + 10;
+            bubble.style.width = size + 'px';
+            bubble.style.height = size + 'px';
+            bubble.style.left = Math.random() * 100 + '%';
+            bubble.style.setProperty('--duration', (Math.random() * 10 + 10) + 's');
+            bubble.style.animationDelay = (Math.random() * 10) + 's';
+            bubblesContainer.appendChild(bubble);
+        }
+    </script>
+</body>
+</html>

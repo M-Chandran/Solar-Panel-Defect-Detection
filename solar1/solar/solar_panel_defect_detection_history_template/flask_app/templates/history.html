@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History - Solar Panel AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+        }
+        
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: rgba(15, 12, 41, 0.95);
+            padding: 30px 20px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .logo-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+        
+        .logo h2 {
+            color: #fff;
+            font-size: 22px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-menu {
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin-bottom: 10px;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(247, 147, 30, 0.2));
+            color: #ff6b35;
+        }
+        
+        .nav-link .icon {
+            margin-right: 12px;
+            font-size: 20px;
+        }
+        
+        .user-info {
+            margin-top: auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 24px;
+            color: #fff;
+        }
+        
+        .user-name {
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .logout-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            border-radius: 8px;
+            color: #ef4444;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .main-content {
+            margin-left: 280px;
+            padding: 40px;
+            min-height: 100vh;
+        }
+        
+        .page-header {
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            color: #fff;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .page-header p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 15px;
+        }
+        
+        .history-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        
+        .history-header {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            padding: 25px 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .history-header span {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .history-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            padding: 25px 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background 0.3s ease;
+            align-items: center;
+        }
+        
+        .history-row:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+        
+        .history-row span {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 15px;
+        }
+        
+        .filename {
+            display: flex;
+            align-items: center;
+        }
+        
+        .filename .icon {
+            margin-right: 12px;
+            font-size: 20px;
+        }
+        
+        .condition-badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .condition-badge.critical {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+        
+        .condition-badge.degraded {
+            background: rgba(247, 147, 30, 0.2);
+            color: #f7931e;
+        }
+        
+        .condition-badge.normal {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+        }
+        
+        .empty-state .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .empty-state h3 {
+            color: #fff;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        
+        .empty-state p {
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 30px;
+        }
+        
+        .action-btn {
+            display: inline-block;
+            padding: 14px 30px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border-radius: 10px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">☀️</div>
+            <h2>Solar Panel AI</h2>
+        </div>
+        
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{{ url_for('dashboard') }}" class="nav-link">
+                    <span class="icon">📊</span>
+                    Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('detect') }}" class="nav-link">
+                    <span class="icon">🔍</span>
+                    Detect Defects
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('history') }}" class="nav-link active">
+                    <span class="icon">📜</span>
+                    History
+                </a>
+            </li>
+        </ul>
+        
+        <div class="user-info">
+            <div class="user-avatar">{{ username[0]|upper }}</div>
+            <div class="user-name">{{ username }}</div>
+            <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+        </div>
+    </nav>
+    
+    <main class="main-content">
+        <div class="page-header">
+            <h1>Analysis History</h1>
+            <p>View all your past solar panel defect detection analyses</p>
+        </div>
+        
+        {% if history %}
+        <div class="history-container">
+            <div class="history-header">
+                <span>Filename</span>
+                <span>Defects</span>
+                <span>Condition</span>
+                <span>Date</span>
+            </div>
+            
+            {% for item in history %}
+            <div class="history-row">
+                <span class="filename">
+                    <span class="icon">📷</span>
+                    {{ item.filename }}
+                </span>
+                <span>{{ item.defects_found }}</span>
+                <span>
+                    <span class="condition-badge {% if item.condition == 'Critical' %}critical{% elif item.condition == 'Degraded' %}degraded{% else %}normal{% endif %}">
+                        {{ item.condition }}
+                    </span>
+                </span>
+                <span>{{ item.timestamp }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <div class="icon">📂</div>
+            <h3>No History Yet</h3>
+            <p>You haven't analyzed any solar panel images yet. Start by uploading an image for defect detection.</p>
+            <a href="{{ url_for('detect') }}" class="action-btn">Start Detection</a>
+        </div>
+        {% endif %}
+    </main>
+</body>
+</html>
